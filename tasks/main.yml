@@ -1,0 +1,7 @@
+---
+# role: ansible-role-openjdk
+# file: tasks/main.yml
+
+- name: "Check if ansible-role-openjdk is enabled"
+  include_tasks: tasks.yml
+  when: openjdk_role_enabled | bool

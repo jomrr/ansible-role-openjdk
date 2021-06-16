@@ -1,0 +1,30 @@
+---
+# role: ansible-role-openjdk
+# file: vars/main.yml
+
+_openjdk_packages:
+  default: []
+  Alpine:
+    jdk: "openjdk{{ openjdk_version }}-{{ openjdk_type }}"
+    jre: "openjdk{{ openjdk_version }}-{{ openjdk_type }}{{ openjdk_headless | ternary('-headless', '') }}"
+  Archlinux:
+    jdk: "{{ openjdk_type }}{{ openjdk_version }}-openjdk"
+    jre: "{{ openjdk_type }}{{ openjdk_version }}-openjdk{{ openjdk_headless | ternary('-headless', '') }}"
+  Debian:
+    jdk: "openjdk-{{ openjdk_version }}-{{ openjdk_type }}{{ openjdk_headless | ternary('-headless', '') }}"
+    jre: "openjdk-{{ openjdk_version }}-{{ openjdk_type }}{{ openjdk_headless | ternary('-headless', '') }}"
+  RedHat:
+    jdk: "java-{{ openjdk_version }}-openjdk-devel"
+    jre: "java-{{ openjdk_version }}-openjdk{{ openjdk_headless | ternary('-headless', '') }}"
+  Suse:
+    jdk: "java-{{ openjdk_version }}-openjdk-devel"
+    jre: "java-{{ openjdk_version }}-openjdk{{ openjdk_headless | ternary('-headless', '') }}"
+
+openjdk_packages: >-
+  {{    _openjdk_packages[ansible_distribution + '-' + ansible_distribution_major_version][openjdk_type]
+  if    _openjdk_packages[ansible_distribution + '-' + ansible_distribution_major_version][openjdk_type] is defined
+  else  _openjdk_packages[ansible_distribution][openjdk_type]
+  if    _openjdk_packages[ansible_distribution][openjdk_type] is defined
+  else  _openjdk_packages[ansible_os_family][openjdk_type]
+  if    _openjdk_packages[ansible_os_family][openjdk_type] is defined
+  else  _openjdk_packages['default'] }}

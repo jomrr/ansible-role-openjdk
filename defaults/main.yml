@@ -1,0 +1,18 @@
+---
+# role: ansible-role-openjdk
+# file: defaults/main.yml
+
+# The role is disabled by default, so you do not get in trouble.
+# Checked in tasks/main.yml which includes tasks/tasks.yml if enabled.
+openjdk_role_enabled: false
+
+# Can be jdk or jre.
+openjdk_type: jdk
+
+# Use headless packages, if available.
+# Useful on servers without gui, as non-headless pulls in a lot of dependencies.
+openjdk_headless: true
+
+# Version to install, defaults to 11.
+# The version is checked against available versions on os repos.
+openjdk_version: 11

@@ -1,0 +1,11 @@
+---
+# role: ansible-role-openjdk
+# file: tasks/tasks.yml
+
+- name: debug
+  debug:
+    msg: "type={{ openjdk_type }} version={{ openjdk_version }} headless={{ openjdk_headless | ternary('headless', '') }}"
+- name: "Install packages for ansible-role-openjdk"
+  package:
+    name: "{{ openjdk_packages }}"
+    state: present
