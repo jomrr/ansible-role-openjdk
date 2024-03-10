@@ -1,69 +1,75 @@
-# ansible-role-openjdk
+# Ansible role openjdk
 
-![GitHub](https://img.shields.io/github/license/jam82/ansible-role-openjdk) ![GitHub last commit](https://img.shields.io/github/last-commit/jam82/ansible-role-openjdk) ![GitHub issues](https://img.shields.io/github/issues-raw/jam82/ansible-role-openjdk) ![Travis (.com) branch](https://img.shields.io/travis/com/jam82/ansible-role-openjdk/main?label=travis) [![Molecule](https://github.com/jam82/ansible-role-openjdk/actions/workflows/molecule.yml/badge.svg)](https://github.com/jam82/ansible-role-openjdk/actions/workflows/molecule.yml)
+![GitHub](https://img.shields.io/github/license/jam82/ansible-role-openjdk) ![GitHub last commit](https://img.shields.io/github/last-commit/jam82/ansible-role-openjdk) ![GitHub issues](https://img.shields.io/github/issues-raw/jam82/ansible-role-openjdk)
 
 **Ansible role for installing openjdk.**
 
+## Description
+
+Installs openjdk system packages on supported systems.
+
+
+## Prerequisites
+
+This role has no special prerequisites.
+
+### System packages (Fedora)
+
+- `python3` (Python 3.8 or later)
+
+### Python (requirements.txt)
+
+- ansible >= 2.15
+
+## Dependencies (requirements.yml)
+
+This role has no dependencies.
+
 ## Supported Platforms
 
-| OS Family | Distribution  | Latest | Supported Version(s) | Comment |
-|-----------|---------------|--------|----------------------|---------|
-| Alpine    | Alpine        | :heavy_check_mark: | 3.12, 3.13 | |
-| Archlinux | Archlinux     | :heavy_check_mark: | - | |
-|           | Manjaro       | :heavy_check_mark: | - | |
-| Debian    | Debian        | :heavy_check_mark: | 10, 11 | |
-|           | Ubuntu        | :heavy_check_mark: | 18.04, 20.04 | |
-| RedHat    | Almalinux     | :heavy_check_mark: | 7, 8 | |
-|           | Amazonlinux   | :x: | - | not tested, image not working |
-|           | Centos        | :heavy_check_mark: | 8 | |
-|           | Fedora        | :heavy_check_mark: | 33, 34, Rawhide | |
-|           | Oraclelinux   | :heavy_check_mark: | 7, 8 | |
-| Suse      | OpenSuse Leap | :heavy_check_mark: | 15.1, 15.2, 15.3 | |
-|           | Tumbleweed    | :heavy_check_mark: | - | |
+| OS Family | Distribution | Version | Container Image |
+|-----------|--------------|---------|-----------------|
+| RedHat | AlmaLinux | 8 | [jam82/molecule-almalinux:8]( https://hub.docker.com/r/jam82/molecule-almalinux ) |
+| | | 9 | [jam82/molecule-almalinux:9]( https://hub.docker.com/r/jam82/molecule-almalinux ) |
+| Alpine | Alpine | 3.18 | [jam82/molecule-alpine:3.18]( https://hub.docker.com/r/jam82/molecule-alpine ) |
+| | | 3.19 | [jam82/molecule-alpine:3.19]( https://hub.docker.com/r/jam82/molecule-alpine ) |
+| Debian | Debian | 11 | [jam82/molecule-debian:11]( https://hub.docker.com/r/jam82/molecule-debian ) |
+| | | 12 | [jam82/molecule-debian:12]( https://hub.docker.com/r/jam82/molecule-debian ) |
+| RedHat | Fedora | 39 | [jam82/molecule-fedora:39]( https://hub.docker.com/r/jam82/molecule-fedora ) |
+| | | 40 | [jam82/molecule-fedora:40]( https://hub.docker.com/r/jam82/molecule-fedora ) |
+| | | rawhide | [jam82/molecule-fedora:rawhide]( https://hub.docker.com/r/jam82/molecule-fedora ) |
+| Debian | Ubuntu | 20.04 | [jam82/molecule-ubuntu:20.04]( https://hub.docker.com/r/jam82/molecule-ubuntu ) |
+| | | 22.04 | [jam82/molecule-ubuntu:22.04]( https://hub.docker.com/r/jam82/molecule-ubuntu ) |
+| | | 24.04 | [jam82/molecule-ubuntu:24.04]( https://hub.docker.com/r/jam82/molecule-ubuntu ) |
 
-## Requirements
+## Role Variables
 
-Ansible 2.9 or higher.
-
-## Variables
-
-Variables and defaults for this role.
-
-### defaults/main.yml
-
-```yaml
-openjdk_role_enabled: false
-```
-
-## Dependencies
-
-None.
+No role default variables specified, see [defaults/main.yml](defaults/main.yml).
 
 ## Example Playbook
 
+Example playbooks(s) that show how to use this role.
+
+## Simple example playbook
+
+A simple default example playbook for using jam82.openjdk.
 ```yaml
 ---
-# role: ansible-role-openjdk
-# play: openjdk
-# file: openjdk.yml
+# name: "jam82.openjdk"
+# file: "playbook_openjdk.yml"
 
-- hosts: all
-  become: true
+- name: "PLAYBOOK | openjdk"
+  hosts: all
   gather_facts: true
-  vars:
-    openjdk_role_enabled: true
   roles:
-    - role: ansible-role-openjdk
+    - role: "jam82.openjdk"
 ```
 
-## License and Author
+## Author(s) and License
 
-- Author:: [jam82](https://github.com/jam82/)
-- Copyright:: 2021, [jam82](https://github.com/jam82/)
+- :octocat:                 Author::    [jam82](https://github.com/jam82)
+- :triangular_flag_on_post: Copyright:: 2021, Jonas Mauer
+- :page_with_curl:          License::   [MIT](LICENSE)
 
-Licensed under [MIT License](https://opensource.org/licenses/MIT).
-See [LICENSE](https://github.com/jam82/ansible-role-openjdk/blob/master/LICENSE) file in repository.
 
-## References
-
-- [ArchWiki](https://wiki.archlinux.org/)
+---

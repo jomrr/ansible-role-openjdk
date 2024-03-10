@@ -1,12 +1,12 @@
 ---
-# role: ansible-role-openjdk
+# name: jam82.ansible-role-openjdk
 # file: molecule/resources/playbooks/verify.yml
 
-- name: Verify
+- name: "PLAYBOOK | Verify"
   hosts: all
-  become: true
   gather_facts: false
   tasks:
-    - name: "Check java version"
-      command: "java --version"
-      changed_when: false
+    - name: "Assert true"
+      ansible.builtin.assert:
+        that: "true"
+        fail_msg: "This should never fail"

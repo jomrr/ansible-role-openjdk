@@ -2,6 +2,11 @@
 # role: ansible-role-openjdk
 # file: tasks/main.yml
 
-- name: "Check if ansible-role-openjdk is enabled"
-  include_tasks: tasks.yml
-  when: openjdk_role_enabled | bool
+- name: "Debug openjdk type, version, headless"
+  ansible.builtin.debug:
+    msg: "type={{ openjdk_type }} version={{ openjdk_version }} headless={{ openjdk_headless | ternary('headless', '') }}"
+
+- name: "Install packages"
+  ansible.builtin.package:
+    name: "{{ _openjdk_packages }}"
+    state: present

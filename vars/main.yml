@@ -2,8 +2,7 @@
 # role: ansible-role-openjdk
 # file: vars/main.yml
 
-_openjdk_packages:
-  default: []
+__openjdk_packages:
   Alpine:
     jdk: "openjdk{{ openjdk_version }}-{{ openjdk_type }}"
     jre: "openjdk{{ openjdk_version }}-{{ openjdk_type }}{{ openjdk_headless | ternary('-headless', '') }}"
@@ -20,11 +19,4 @@ _openjdk_packages:
     jdk: "java-{{ openjdk_version }}-openjdk-devel"
     jre: "java-{{ openjdk_version }}-openjdk{{ openjdk_headless | ternary('-headless', '') }}"
 
-openjdk_packages: >-
-  {{    _openjdk_packages[ansible_distribution + '-' + ansible_distribution_major_version][openjdk_type]
-  if    _openjdk_packages[ansible_distribution + '-' + ansible_distribution_major_version][openjdk_type] is defined
-  else  _openjdk_packages[ansible_distribution][openjdk_type]
-  if    _openjdk_packages[ansible_distribution][openjdk_type] is defined
-  else  _openjdk_packages[ansible_os_family][openjdk_type]
-  if    _openjdk_packages[ansible_os_family][openjdk_type] is defined
-  else  _openjdk_packages['default'] }}
+_openjdk_packages: _openjdk_packages[ansible_os_family][openjdk_type]

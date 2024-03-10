@@ -1,12 +1,8 @@
 ---
-# role: ansible-role-openjdk
+# name: jam82.ansible-role-openjdk
 # file: molecule/resources/playbooks/converge.yml
 
-- name: Converge
+- name: "PLAYBOOK | Converge"
   hosts: all
-  become: true
-  vars:
-    baseline_role_enabled: false
-    openjdk_role_enabled: true
   roles:
-    - role: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}"
+    - role: "{{ lookup('ansible.builtin.env', 'MOLECULE_PROJECT_DIRECTORY') }}"
