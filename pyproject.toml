@@ -5,7 +5,7 @@ description = "Ansible role for installing openjdk."
 authors = ["Jonas Mauer"]
 license = "MIT"
 keywords = ["java", "openjdk"]
-repository = "https://github.com/jam82/ansible-role-openjdk"
+repository = "https://github.com/jomrr/ansible-role-openjdk"
 
 [tool.commitizen]
 name = "cz_conventional_commits"

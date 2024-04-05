@@ -1,5 +1,5 @@
 ---
-# name: jam82.ansible-role-openjdk
+# name: jomrr.ansible-role-openjdk
 # file: molecule/resources/playbooks/converge.yml
 
 - name: "PLAYBOOK | Converge"
