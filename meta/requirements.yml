@@ -1,5 +1,0 @@
----
-# name: jomrr.openjdk
-# file: meta/requirements.yml
-
-- name: community.general
