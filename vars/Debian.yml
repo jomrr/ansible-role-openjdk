@@ -1,0 +1,7 @@
+---
+# role: openjdk
+# file: vars/Debian.yml
+
+__openjdk_packages:
+  jdk: "openjdk-{{ openjdk_version }}-jdk{{ openjdk_headless | ternary('-headless', '') }}"
+  jre: "openjdk-{{ openjdk_version }}-jre{{ openjdk_headless | ternary('-headless', '') }}"

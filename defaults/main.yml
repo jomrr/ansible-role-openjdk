@@ -1,13 +1,13 @@
 ---
-# role: ansible-role-openjdk
+# role: openjdk
 # file: defaults/main.yml
 
-# Can be jdk or jre.
+# Install the development kit (jdk) or the runtime (jre).
 openjdk_type: jdk
+# openjdk_type: jre
 
-# Use headless packages, if available.
-# Useful on servers without gui, as non-headless pulls in a lot of dependencies.
+# Select headless packages where the platform provides a matching variant.
 openjdk_headless: true
 
-# Version to install, defaults to latest LTS.
-openjdk_version: 21
+# OpenJDK major version to install from the distribution packages.
+openjdk_version: 25

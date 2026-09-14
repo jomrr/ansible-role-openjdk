@@ -1,75 +1,136 @@
-# Ansible role openjdk
+# Ansible Role: openjdk
 
-![GitHub](https://img.shields.io/github/license/jomrr/ansible-role-openjdk) ![GitHub last commit](https://img.shields.io/github/last-commit/jomrr/ansible-role-openjdk) ![GitHub issues](https://img.shields.io/github/issues-raw/jomrr/ansible-role-openjdk)
+![GitHub](https://img.shields.io/github/license/jomrr/ansible-role-openjdk)
+![GitHub last commit](https://img.shields.io/github/last-commit/jomrr/ansible-role-openjdk)
+![GitHub issues](https://img.shields.io/github/issues-raw/jomrr/ansible-role-openjdk)
+[![dev](https://img.shields.io/github/actions/workflow/status/jomrr/ansible-role-openjdk/dev.yml?branch=dev&event=push&label=dev)](https://github.com/jomrr/ansible-role-openjdk/actions/workflows/dev.yml?query=branch%3Adev)
+[![main](https://img.shields.io/github/actions/workflow/status/jomrr/ansible-role-openjdk/main.yml?branch=main&event=push&label=main)](https://github.com/jomrr/ansible-role-openjdk/actions/workflows/main.yml?query=branch%3Amain)
 
-**Ansible role for installing openjdk.**
+Install the selected OpenJDK development kit or runtime from distribution
+packages.
 
-## Description
+## Purpose
 
-Installs openjdk system packages on supported systems.
+Ensures that distribution packages for the selected OpenJDK major version and
+development kit or runtime are installed. Installation is idempotent: subsequent
+runs with the same inputs leave installed packages unchanged.
 
+## Scope
 
-## Prerequisites
+### Managed
 
-This role has no special prerequisites.
+- OpenJDK development kit or runtime packages for the selected major version.
+- Headless JRE packages and, on Debian-based systems, headless JDK packages.
 
-### System packages (Fedora)
+### Not Managed
 
-- `python3` (Python 3.8 or later)
+- Selection of the active Java version when multiple versions are installed.
+- JAVA_HOME, application configuration, and removal of previously installed Java
+  packages.
 
-### Python (requirements.txt)
+## Dependencies
 
-- ansible >= 2.15
+```yaml
+collections:
+  - name: community.general
+    version: '>=12.0.0'
+```
 
-## Dependencies (requirements.yml)
+## Role Variables
 
-This role has no dependencies.
+### `openjdk_type`
+
+Type: `str`. Required: `false`.
+
+Install the development kit, including the Java compiler, or only the Java
+runtime.
+
+Default:
+
+```yaml
+openjdk_type: jdk
+```
+
+### `openjdk_headless`
+
+Type: `bool`. Required: `false`.
+
+Select headless packages where the platform provides a matching variant.
+Applies to JRE packages on all supported OS families and to JDK packages on
+Debian-based systems.
+
+Default:
+
+```yaml
+openjdk_headless: true
+```
+
+### `openjdk_version`
+
+Type: `int`. Required: `false`.
+
+OpenJDK major version to install from the distribution packages.
+
+Default:
+
+```yaml
+openjdk_version: 25
+```
+
+## Check Mode
+
+Reports required package installation without installing packages.
+
+## Operational Notes
+
+- Changing the type or version installs the new selection and leaves existing
+  Java packages installed.
 
 ## Supported Platforms
 
 | OS Family | Distribution | Version | Container Image |
-|-----------|--------------|---------|-----------------|
-| RedHat | AlmaLinux | 8 | [jomrr/molecule-almalinux:8]( https://hub.docker.com/r/jomrr/molecule-almalinux ) |
-| | | 9 | [jomrr/molecule-almalinux:9]( https://hub.docker.com/r/jomrr/molecule-almalinux ) |
-| Alpine | Alpine | 3.18 | [jomrr/molecule-alpine:3.18]( https://hub.docker.com/r/jomrr/molecule-alpine ) |
-| | | 3.19 | [jomrr/molecule-alpine:3.19]( https://hub.docker.com/r/jomrr/molecule-alpine ) |
-| Debian | Debian | 11 | [jomrr/molecule-debian:11]( https://hub.docker.com/r/jomrr/molecule-debian ) |
-| | | 12 | [jomrr/molecule-debian:12]( https://hub.docker.com/r/jomrr/molecule-debian ) |
-| RedHat | Fedora | 39 | [jomrr/molecule-fedora:39]( https://hub.docker.com/r/jomrr/molecule-fedora ) |
-| | | 40 | [jomrr/molecule-fedora:40]( https://hub.docker.com/r/jomrr/molecule-fedora ) |
-| | | rawhide | [jomrr/molecule-fedora:rawhide]( https://hub.docker.com/r/jomrr/molecule-fedora ) |
-| Debian | Ubuntu | 20.04 | [jomrr/molecule-ubuntu:20.04]( https://hub.docker.com/r/jomrr/molecule-ubuntu ) |
-| | | 22.04 | [jomrr/molecule-ubuntu:22.04]( https://hub.docker.com/r/jomrr/molecule-ubuntu ) |
-| | | 24.04 | [jomrr/molecule-ubuntu:24.04]( https://hub.docker.com/r/jomrr/molecule-ubuntu ) |
-
-## Role Variables
-
-No role default variables specified, see [defaults/main.yml](defaults/main.yml).
+| --------- | ------------ | ------- | --------------- |
+| RedHat | AlmaLinux | latest | [jomrr/molecule-almalinux:latest](https://hub.docker.com/r/jomrr/molecule-almalinux) |
+| Debian | Debian | latest | [jomrr/molecule-debian:latest](https://hub.docker.com/r/jomrr/molecule-debian) |
+| RedHat | Fedora | latest | [jomrr/molecule-fedora:latest](https://hub.docker.com/r/jomrr/molecule-fedora) |
+| Suse | OpenSuse Leap | latest | [jomrr/molecule-opensuse-leap:latest](https://hub.docker.com/r/jomrr/molecule-opensuse-leap) |
+| Suse | OpenSuse Tumbleweed | latest | [jomrr/molecule-opensuse-tumbleweed:latest](https://hub.docker.com/r/jomrr/molecule-opensuse-tumbleweed) |
+| Debian | Ubuntu | latest | [jomrr/molecule-ubuntu:latest](https://hub.docker.com/r/jomrr/molecule-ubuntu) |
 
 ## Example Playbook
 
-Example playbooks(s) that show how to use this role.
+### Install the default development kit
 
-## Simple example playbook
-
-A simple default example playbook for using jomrr.openjdk.
 ```yaml
 ---
-# name: "jomrr.openjdk"
-# file: "playbook_openjdk.yml"
-
-- name: "PLAYBOOK | openjdk"
+- name: Install OpenJDK 25
   hosts: all
   gather_facts: true
   roles:
-    - role: "jomrr.openjdk"
+    - role: jomrr.openjdk
 ```
 
-## Author(s) and License
+### Install a runtime with graphical support
 
-- :octocat:                 Author::    [jomrr](https://github.com/jomrr)
-- :triangular_flag_on_post: Copyright:: 2021, Jonas Mauer
-- :page_with_curl:          License::   [MIT](LICENSE)
-
-
+```yaml
 ---
+- name: Install the OpenJDK runtime
+  hosts: all
+  gather_facts: true
+  roles:
+    - role: jomrr.openjdk
+      openjdk_type: jre
+      openjdk_headless: false
+      openjdk_version: 25
+```
+
+## Author
+
+[Jonas Mauer](https://github.com/jomrr)
+
+## License
+
+This project is licensed under the MIT License.
+See [LICENSE](LICENSE) for the full license text.
+
+Copyright (c) 2021 Jonas Mauer.

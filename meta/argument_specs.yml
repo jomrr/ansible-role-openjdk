@@ -1,0 +1,29 @@
+---
+# role: openjdk
+# file: meta/argument_specs.yml
+
+argument_specs:
+  main:
+    short_description: Install the selected OpenJDK development kit or runtime from distribution
+      packages.
+    options:
+      openjdk_type:
+        type: str
+        default: jdk
+        choices:
+          - jdk
+          - jre
+        description:
+          - Install the development kit, including the Java compiler, or only the Java runtime.
+      openjdk_headless:
+        type: bool
+        default: true
+        description:
+          - Select headless packages where the platform provides a matching variant.
+          - Applies to JRE packages on all supported OS families and to JDK packages on
+            Debian-based systems.
+      openjdk_version:
+        type: int
+        default: 25
+        description:
+          - OpenJDK major version to install from the distribution packages.

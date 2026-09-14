@@ -1,12 +1,34 @@
 ---
-# name: jomrr.ansible-role-openjdk
+# role: openjdk
 # file: molecule/resources/playbooks/verify.yml
 
-- name: "PLAYBOOK | Verify"
+- name: OPENJDK | Verify the selected Java installation
   hosts: all
   gather_facts: false
   tasks:
-    - name: "Assert true"
+    - name: OPENJDK | Read the Java runtime version
+      ansible.builtin.command:
+        argv: [java, -version]
+      changed_when: false
+      register: __openjdk_java
+
+    - name: OPENJDK | Verify the Java runtime version
       ansible.builtin.assert:
-        that: "true"
-        fail_msg: "This should never fail"
+        that:
+          - __openjdk_java.stderr is search('version "(?:1\.)?' ~ (openjdk_version | string) ~ '[."]')
+        quiet: true
+
+    - name: OPENJDK | Verify the development kit
+      when: openjdk_type == 'jdk'
+      block:
+        - name: OPENJDK | Read the Java compiler version
+          ansible.builtin.command:
+            argv: [javac, -version]
+          changed_when: false
+          register: __openjdk_javac
+
+        - name: OPENJDK | Verify the Java compiler version
+          ansible.builtin.assert:
+            that:
+              - __openjdk_javac.stdout is match('javac (?:1\.)?' ~ (openjdk_version | string) ~ '[.\s]')
+            quiet: true

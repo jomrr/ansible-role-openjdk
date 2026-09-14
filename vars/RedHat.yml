@@ -1,0 +1,7 @@
+---
+# role: openjdk
+# file: vars/RedHat.yml
+
+__openjdk_packages:
+  jdk: "java-{{ openjdk_version }}-openjdk-devel"
+  jre: "java-{{ openjdk_version }}-openjdk{{ openjdk_headless | ternary('-headless', '') }}"

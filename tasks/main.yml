@@ -1,12 +1,19 @@
 ---
-# role: ansible-role-openjdk
+# role: openjdk
 # file: tasks/main.yml
 
-- name: "Debug openjdk type, version, headless"
-  ansible.builtin.debug:
-    msg: "type={{ openjdk_type }} version={{ openjdk_version }} headless={{ openjdk_headless | ternary('headless', '') }}"
+- name: OPENJDK | Load platform settings
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', __openjdk_platform_files) }}"
+  vars:
+    __openjdk_platform_files:
+      files:
+        - "{{ ansible_facts.os_family }}.yml"
+      paths:
+        - "{{ role_path }}/vars"
 
-- name: "Install packages"
+- name: OPENJDK | Install packages
+  become: true
+  become_user: root
   ansible.builtin.package:
-    name: "{{ _openjdk_packages }}"
+    name: "{{ __openjdk_packages[openjdk_type] }}"
     state: present
