@@ -3,8 +3,8 @@
 ![GitHub](https://img.shields.io/github/license/jomrr/ansible-role-openjdk)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jomrr/ansible-role-openjdk)
 ![GitHub issues](https://img.shields.io/github/issues-raw/jomrr/ansible-role-openjdk)
-[![dev](https://img.shields.io/github/actions/workflow/status/jomrr/ansible-role-openjdk/dev.yml?branch=dev&event=push&label=dev)](https://github.com/jomrr/ansible-role-openjdk/actions/workflows/dev.yml?query=branch%3Adev)
-[![main](https://img.shields.io/github/actions/workflow/status/jomrr/ansible-role-openjdk/main.yml?branch=main&event=push&label=main)](https://github.com/jomrr/ansible-role-openjdk/actions/workflows/main.yml?query=branch%3Amain)
+[![dev](https://img.shields.io/github/actions/workflow/status/jomrr/ansible-role-openjdk/dev.yml?branch=dev&label=dev)](https://github.com/jomrr/ansible-role-openjdk/actions/workflows/dev.yml?query=branch%3Adev)
+[![main](https://img.shields.io/github/actions/workflow/status/jomrr/ansible-role-openjdk/main.yml?branch=main&label=main)](https://github.com/jomrr/ansible-role-openjdk/actions/workflows/main.yml?query=branch%3Amain)
 
 Install the selected OpenJDK development kit or runtime from distribution
 packages.
